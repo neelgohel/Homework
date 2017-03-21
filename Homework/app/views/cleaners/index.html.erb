@@ -1,0 +1,5 @@
+<%= button_to "Admin",admins_path,method:'get'%>
+<%= button_to :"Add Cleaner",new_cleaner_path,method:'get' %><br/>
+<% @cleaners.each do |cleaner| %>
+   <%= cleaner.first_name%> <%= cleaner.last_name %> <%= link_to :edit,edit_cleaner_path(cleaner.id) %> <%= link_to :show,cleaner_path(cleaner.id) %> <br/>
+<% end %>

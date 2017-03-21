@@ -1,0 +1,13 @@
+<p>
+  <strong>City Name:</strong>
+  <%= @city.city_name %>
+</p>
+
+<p>
+  <strong>Cleaners in this city:</strong><br/>
+  <% @cleaners_in_city.each do |cleaner| %>
+    <%= cleaner.first_name%> <%=cleaner.last_name%><br/>
+  <% end %>
+</p>
+
+<%= link_to :back,cities_path %>

@@ -1,0 +1,24 @@
+<p>
+  <strong>First name:</strong>
+  <%= @cleaner.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @cleaner.last_name %>
+</p>
+
+<p>
+  <strong>Quality score:</strong>
+  <%= @cleaner.quality_score %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <br/>
+  <% @city_names.each do |city| %>
+    <%= city %><br/>
+  <% end %>
+</p>
+
+<%= link_to :back,cleaners_path %>
