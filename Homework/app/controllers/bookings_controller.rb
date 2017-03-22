@@ -18,9 +18,9 @@ class BookingsController < ApplicationController
     begin
       datetime = DateTime.new(params[:booking]["datetime(1i)"].to_i, params[:booking]["datetime(2i)"].to_i,
                           params[:booking]["datetime(3i)"].to_i, params[:booking]["datetime(4i)"].to_i,
-                          params[:booking]["datetime(5i)"].to_i)
+                          params[:booking]["datetime(5i)"].to_i,0,'+05:30')
       city = City.find(params[:booking][:city_id])
-      city_bookings_at_same_time = city.bookings.where(datetime:datetime)
+      city_bookings_at_same_time = city.bookings.where(datetime:((datetime-2.hours)..(datetime+2.hours)))
       cleaners_not_available = []
       city_bookings_at_same_time.each do |booking|
         cleaners_not_available.push(booking.cleaner.id)
@@ -51,13 +51,32 @@ class BookingsController < ApplicationController
   end
 
   def show
-    @booking = Booking.find(params[:id])
-    @cleaner = @booking.cleaner
-    @city = @booking.city
+    @booking = Booking.find_by(id:params[:id])
+    unless @booking.nil?
+      if @booking.customer == current_customer
+        @cleaner = @booking.cleaner
+        @city = @booking.city
+      else
+        redirect_to '/404'
+      end
+    else
+      redirect_to '/404'
+    end
   end
 
   def edit
     redirect_to customers_path
+  end
+
+  def destroy
+    @booking = Booking.find(params[:id])
+    @cleaner = @booking.cleaner
+    @city = @booking.city
+    @customer = @booking.customer
+    if @booking.destroy
+      BookingmailMailer.mail_cleaner_cancel(@cleaner,@customer,@city).deliver_later
+      redirect_to customers_path
+    end
   end
 
   private

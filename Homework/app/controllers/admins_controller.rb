@@ -4,6 +4,7 @@ class AdminsController < ApplicationController
 
   def index
     flash[:notice] = ""
+    flash[:alert] = ""
     @customers = Customer.all
   end
 

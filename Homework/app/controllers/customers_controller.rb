@@ -5,6 +5,7 @@ class CustomersController < ApplicationController
 
   def index
     flash[:notice] = ""
+    flash[:alert] = ""
     @bookings = current_customer.bookings
   end
 

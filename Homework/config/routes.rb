@@ -8,4 +8,5 @@ Rails.application.routes.draw do
       }
   resources :admins,:cleaners,:cities,:customers,:bookings
   root 'customers#index'
+  match '*path' => redirect('/404'), via: :get
 end

@@ -1,4 +1,5 @@
 class CleanersController < ApplicationController
+before_action :authenticate_admin!
 before_action :load_city,only:[:new,:create,:edit,:update]
 layout 'admin'
 
@@ -31,9 +32,13 @@ layout 'admin'
   end
 
   def edit
-    @cleaner = Cleaner.find(params[:id])
-    @cities = []
-    @cleaner.cities.each {|city| @cities.push(city.id)}
+    @cleaner = Cleaner.find_by(params[:id])
+    unless @cleaner.nil?
+      @cities = []
+      @cleaner.cities.each {|city| @cities.push(city.id)}
+    else
+      redirect_to '/404'
+    end
   end
 
   def update
@@ -50,9 +55,13 @@ layout 'admin'
   end
 
   def show
-    @cleaner = Cleaner.find(params[:id])
-    @city_names = []
-    @cleaner.cities.each{|city| @city_names.push(city.city_name) }
+    @cleaner = Cleaner.find_by(id:params[:id])
+    unless @cleaner.nil?
+      @city_names = []
+      @cleaner.cities.each{|city| @city_names.push(city.city_name) }
+    else
+      redirect_to '/404'
+    end
   end
 
   def destroy
