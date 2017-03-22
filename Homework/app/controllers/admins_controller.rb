@@ -1,14 +1,8 @@
 class AdminsController < ApplicationController
-  before_action :authenticate_not_customer
   before_action :authenticate_admin!
+  layout 'admin'
 
   def index
-
-  end
-
-  def authenticate_not_customer
-    unless current_customer.nil?
-      redirect_to customers_path
-    end
+    flash[:notice] = ""
   end
 end

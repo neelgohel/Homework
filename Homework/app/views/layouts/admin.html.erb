@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homework</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <div align="center">
+      <%= link_to "Home",admins_path%>
+      <%= link_to "Manage Cities",cities_path%>
+      <%= link_to "Manage Cleaners",cleaners_path%>
+      <div style="float:right;">
+        <%= button_to "Log Out",destroy_admin_session_path,method:'delete'%>
+      </div>
+    </div>
+    <hr/>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </body>
+</html>

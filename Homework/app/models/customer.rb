@@ -8,6 +8,8 @@ class Customer < ApplicationRecord
   validates :first_name,presence:true
   validates :last_name,presence:true
   validates :phone_number,presence:true
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/,
+    message: "Please Enter valid email address" }
   validates_uniqueness_of :phone_number
   validate :phone_number_length?
 

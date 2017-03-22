@@ -1,5 +1,6 @@
 class CitiesController < ApplicationController
   before_action :authenticate_admin!
+  layout 'admin'
 
   def index
     @cities = City.all

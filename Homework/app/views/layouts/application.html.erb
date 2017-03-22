@@ -9,8 +9,13 @@
   </head>
 
   <body>
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <div align="center">
+      <%= link_to "Admin Login",admins_path %>
+      <%= link_to "Customer Login",customers_path %>
+      <hr/>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    <div>
   </body>
 </html>

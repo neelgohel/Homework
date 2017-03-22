@@ -1,5 +1,10 @@
 class BookingsController < ApplicationController
     before_action :authenticate_customer!
+    layout 'customers'
+
+  def index
+    redirect_to customers_path
+  end
 
   def new
     @city = City.all
@@ -22,7 +27,7 @@ class BookingsController < ApplicationController
     cleaners_in_city = city.cleaners.where.not(id:cleaners_not_available)
     cleaners_available = []
     cleaners_in_city.each do |cleaner|
-      if cleaner.bookings.where(datetime:datetime) == []
+      if cleaner.bookings.where(datetime:((datetime-2.hours)..(datetime+2.hours))) == []
         cleaners_available.push(cleaner.id)
       end
     end
@@ -49,6 +54,6 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:date, :datetime, :city_id)
+    params.require(:booking).permit(:datetime, :city_id)
   end
 end

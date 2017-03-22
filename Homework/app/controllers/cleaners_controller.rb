@@ -1,5 +1,6 @@
 class CleanersController < ApplicationController
 before_action :load_city,only:[:new,:create,:edit,:update]
+layout 'admin'
 
 
   def load_city

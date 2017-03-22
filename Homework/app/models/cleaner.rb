@@ -6,6 +6,8 @@ class Cleaner < ApplicationRecord
   validates :last_name,presence:true
   validates :quality_score,presence:true
   validates :email,presence:true
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/,
+    message: "Please Enter valid email address" }
   validate :quality_score_range?
 
   def quality_score_range?
