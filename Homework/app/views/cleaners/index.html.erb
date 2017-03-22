@@ -1,11 +1,11 @@
 <%= button_to :"Add Cleaner",new_cleaner_path,method:'get' %><br/>
-<table border="1">
+<table class="table table-hover table-striped">
   <tr>
-    <td>Name</td>
-    <td>Email</td>
-    <td>Quality Score</td>
-    <td>City</td>
-    <td colspan="3">Action</td>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Quality Score</th>
+    <th>City</th>
+    <th colspan="3">Action</th>
   </tr>
   <% if @cleaners == []%>
     <tr>

@@ -34,7 +34,7 @@ class BookingsController < ApplicationController
     if cleaners_available != []
       @booking.cleaner_id = cleaners_available.sample
       if @booking.save
-        BookingmailMailer.mail_cleaner(@booking.id).deliver_now
+        BookingmailMailer.mail_cleaner(@booking.id).deliver_later
         redirect_to @booking
       else
         render 'new'
