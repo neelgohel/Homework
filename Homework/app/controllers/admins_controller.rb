@@ -11,4 +11,8 @@ class AdminsController < ApplicationController
     redirect_to admins_path
   end
 
+  def edit
+    redirect_to admins_path
+  end
+
 end

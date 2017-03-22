@@ -6,7 +6,8 @@ class BookingmailMailer < ApplicationMailer
     @booking = Booking.find(booking_id)
     @cleaner = @booking.cleaner
     @customer = @booking.customer
-    mail(to: @cleaner.email, subject: "New Cleaning Order")
+    @city = @booking.city
+    mail(to: @cleaner.email, subject: "New Cleaning Order at #{@city.city_name}")
   end
 
 end

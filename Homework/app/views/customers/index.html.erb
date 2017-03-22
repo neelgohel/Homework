@@ -15,7 +15,7 @@
       <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
       <td><%= booking.city.city_name %></td>
       <td><%= booking.datetime %></td>
-      <td><%= link_to 'View',booking_path(booking.id)%></td>
+      <td><%= link_to booking_path(booking.id) do%> <span class="glyphicon glyphicon-eye-open"/><% end %></td>
     </tr>
     <% end %>
   <% end %>

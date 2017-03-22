@@ -40,8 +40,8 @@ class BookingsController < ApplicationController
         render 'new'
       end
     else
-      flash[:notice] = "No cleaner available at given time.."
-      render 'new'
+      flash[:alert] = "No cleaner available at given time.."
+      redirect_to new_booking_path
     end
   end
 
@@ -49,6 +49,10 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
     @cleaner = @booking.cleaner
     @city = @booking.city
+  end
+
+  def edit
+    redirect_to customers_path
   end
 
   private
