@@ -20,7 +20,9 @@ before_action :load_city,only:[:new,:create,:edit,:update]
     @cities = []
     @cleaner = Cleaner.new(cleaner_params)
       if @cleaner.save
-
+        params[:city_ids].each do |id|
+          CitiesCleaner.create(city_id:id,cleaner_id:@cleaner.id)
+        end
         redirect_to @cleaner
       else
         render :new
@@ -50,6 +52,12 @@ before_action :load_city,only:[:new,:create,:edit,:update]
     @cleaner = Cleaner.find(params[:id])
     @city_names = []
     @cleaner.cities.each{|city| @city_names.push(city.city_name) }
+  end
+
+  def destroy
+    @cleaner = Cleaner.find(params[:id])
+    @cleaner.destroy
+    redirect_to cleaners_path
   end
 
   private

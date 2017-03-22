@@ -1,5 +1,6 @@
 class Cleaner < ApplicationRecord
-  has_and_belongs_to_many :cities
+  has_and_belongs_to_many :cities,dependent: :destroy
+  has_many :bookings,dependent: :destroy
 
   validates :first_name,presence:true
   validates :last_name,presence:true

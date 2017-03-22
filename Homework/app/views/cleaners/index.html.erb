@@ -1,5 +1,22 @@
 <%= button_to "Admin",admins_path,method:'get'%>
 <%= button_to :"Add Cleaner",new_cleaner_path,method:'get' %><br/>
+<table border="1">
+  <tr>
+    <td>Name</td>
+    <td>Email</td>
+    <td>Quality Score</td>
+    <td>City</td>
+    <td colspan="3">Action</td>
+  </tr>
 <% @cleaners.each do |cleaner| %>
-   <%= cleaner.first_name%> <%= cleaner.last_name %> <%= link_to :edit,edit_cleaner_path(cleaner.id) %> <%= link_to :show,cleaner_path(cleaner.id) %> <br/>
+<tr>
+ <td><%= cleaner.first_name%> <%= cleaner.last_name %></td>
+ <td><%= cleaner.email%></td>
+ <td><%= cleaner.quality_score%></td>
+ <% city_names = []
+ cleaner.cities.each{|city| city_names.push(city.city_name)} %>
+ <td><%= city_names.join(',') %></td>
+  <td><%= link_to :edit,edit_cleaner_path(cleaner.id) %></td><td><%= link_to :show,cleaner_path(cleaner.id) %></td><td><%= link_to :delete,cleaner_path(cleaner.id),method:'delete',data:{confirm:'Are you sure?'} %></td>
+</tr>
 <% end %>
+</table>

@@ -1,5 +1,14 @@
 <%= button_to "Admin",admins_path,method:'get'%>
 <%= button_to :"Add City",new_city_path,method:'get' %><br/>
+<table border="1">
+  <tr>
+    <td>City Name</td>
+    <td colspan="3">Action</td>
+  </tr>
 <% @cities.each do |city| %>
-  <%= city.city_name %> <%= link_to :edit,edit_city_path(city.id) %> <%= link_to :show,city_path(city.id) %> <br/>
+    <tr>
+      <td><%= city.city_name %></td>
+     <td><%= link_to :edit,edit_city_path(city.id) %></td><td><%= link_to :show,city_path(city.id) %> </td><td><%= link_to :delete,city_path(city.id),method:'delete',data: { confirm:'Are you sure?'} %> </td>
+   </tr>
 <% end %>
+</table>

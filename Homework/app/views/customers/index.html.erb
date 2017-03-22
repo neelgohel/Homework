@@ -1,0 +1,22 @@
+Hello <%= current_customer.first_name %>,
+<%= button_to "Log Out",destroy_customer_session_path,method:'delete'%>
+<%= button_to "Edit Profile",edit_customer_registration_path,method:'get'%>
+<%= button_to "Book",new_booking_path,method:'get'%>
+
+
+<table border="1">
+  <tr>
+    <td>Cleaner Name</td>
+    <td>City</td>
+    <td>Date and Time</td>
+    <td>Action</td>
+  </tr>
+  <% @bookings.each do |booking| %>
+  <tr>
+    <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
+    <td><%= booking.city.city_name %></td>
+    <td><%= booking.datetime %></td>
+    <td><%= link_to 'View',booking_path(booking.id)%></td>
+  </tr>
+  <% end %>
+</table>
