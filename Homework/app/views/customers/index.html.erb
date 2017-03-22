@@ -1,5 +1,3 @@
-Hello <%= current_customer.first_name %>,
-
 <table border="1">
   <tr>
     <td>Cleaner Name</td>
@@ -7,12 +5,18 @@ Hello <%= current_customer.first_name %>,
     <td>Date and Time</td>
     <td>Action</td>
   </tr>
-  <% @bookings.each do |booking| %>
+  <% if @bookings == []%>
   <tr>
-    <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
-    <td><%= booking.city.city_name %></td>
-    <td><%= booking.datetime %></td>
-    <td><%= link_to 'View',booking_path(booking.id)%></td>
-  </tr>
+      <td colspan="4" align="center">No Records Found</td>
+    </tr>
+  <% else %>
+    <% @bookings.each do |booking| %>
+    <tr>
+      <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
+      <td><%= booking.city.city_name %></td>
+      <td><%= booking.datetime %></td>
+      <td><%= link_to 'View',booking_path(booking.id)%></td>
+    </tr>
+    <% end %>
   <% end %>
 </table>

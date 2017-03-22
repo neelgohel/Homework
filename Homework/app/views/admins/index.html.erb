@@ -1,3 +1,23 @@
-Hello <%= current_admin.email %>
-<%= button_to :"Add Cleaner",new_cleaner_path,method:'get' %><br/>
-<%= button_to :"Add City",new_city_path,method:'get' %><br/>
+<h3>Customer Details</h3>
+<table border="1">
+  <tr>
+    <td>Name</td>
+    <td>Email</td>
+    <td>Phone Number</td>
+    <td>No of bookings</td>
+  </tr>
+  <% if @customers == [] %>
+    <tr>
+      <td colspan="4" align="center">No Records Found.</td>
+    </tr>
+  <% else %>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.first_name %> <%= customer.last_name %></td>
+        <td><%= customer.email %></td>
+        <td><%= customer.phone_number %></td>
+        <td><%= customer.bookings.count %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

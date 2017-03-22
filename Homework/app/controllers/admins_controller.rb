@@ -4,6 +4,7 @@ class AdminsController < ApplicationController
 
   def index
     flash[:notice] = ""
+    @customers = Customer.all
   end
 
   def show

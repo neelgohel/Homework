@@ -17,12 +17,15 @@
             <li><%= link_to "Book Cleaner",new_booking_path%></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><%= button_to destroy_customer_session_path,method:'delete' do%><span class="glyphicon glyphicon-log-out"></span>Logout<% end %></li>
+            <li>Welcome <%= current_customer.first_name %></li>
+            <li><%= button_to destroy_customer_session_path,method:'delete',class:'btn btn-link' do%><span class="glyphicon glyphicon-log-out"></span>Logout<% end %></li>
           </ul>
         </div>
       </nav>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <%= yield %>
+      <div class="container">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+        <%= yield %>
+      </div>
   </body>
 </html>

@@ -1,4 +1,4 @@
-<%= form_for(@cleaner) do |f| %>
+<%= form_for(@cleaner,html:{class:'form-horizontal'}) do |f| %>
   <% if @cleaner.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@cleaner.errors.count, "error") %> prohibited this cleaner from being saved:</h2>
@@ -11,35 +11,45 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
+  <%= f.label :first_name %>
+  <div class="form-group">
+    <div class="col-xs-5">
+      <%= f.text_field :first_name ,class:'form-control'%>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
+  <%= f.label :last_name %>
+  <div class="form-group">
+    <div class="col-xs-5">
+      <%= f.text_field :last_name ,class:'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :quality_score %><br>
-    <%= f.text_field :quality_score %>
+</div>
+<%= f.label :quality_score %>
+  <div class="form-group">
+    <div class="col-xs-5">
+      <%= f.text_field :quality_score ,class:'form-control' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email %>
+  <%= f.label :email %>
+  <div class="form-group">
+    <div class="col-xs-5">
+      <%= f.email_field :email ,class:'form-control' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :"City:" %><br>
-        <% @city.each do |city| %>
-            <% if @cities.include?city.id %>
-              <%= check_box_tag 'city_ids[]',city.id,checked:true %>
-              <%= h city.city_name %></br>
-            <%else%>
-              <%= check_box_tag 'city_ids[]', city.id %>
-              <%= h city.city_name %></br>
-            <% end %>
-        <% end %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.label :"City:" %>
+
+  <% @city.each do |city| %>
+      <% if @cities.include?city.id %>
+        <div class="form_group">
+          <%= check_box_tag 'city_ids[]',city.id,checked:true %>
+          <%= h city.city_name %>
+        </div>
+      <%else%>
+        <div class="form_group">
+          <%= check_box_tag 'city_ids[]', city.id %>
+          <%= h city.city_name %>
+        </div>
+      <% end %>
+  <% end %>
+  <br/>
+  <%= f.submit %>
 <% end %>

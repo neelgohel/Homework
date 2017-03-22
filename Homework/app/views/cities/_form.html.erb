@@ -1,9 +1,9 @@
-<%= form_for(@city) do |f| %>
-<div class="field">
-  <%= f.label :name %><br>
-  <%= f.text_field :city_name %>
-</div><br/>
-<div class="actions">
-  <%= f.submit %>
+<%= form_for(@city,html:{class:'form-inline'}) do |f| %>
+<%= f.label :name %>
+<div class="form-group">
+  <div class="col-xs-5">
+    <%= f.text_field :city_name,class:'form-control' %>
+  </div>
 </div>
+  <%= f.submit %>
 <% end %>
