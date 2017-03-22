@@ -1,8 +1,6 @@
 <%= form_for(@cleaner,html:{class:'form-horizontal'}) do |f| %>
   <% if @cleaner.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@cleaner.errors.count, "error") %> prohibited this cleaner from being saved:</h2>
-
       <ul>
       <% @cleaner.errors.full_messages.each do |message| %>
         <li><%= message %></li>

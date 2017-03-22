@@ -24,7 +24,7 @@ class Admins::SessionsController < Devise::SessionsController
   # end
 
   def check_customer
-    unless current_customer.nil?
+    if customer_signed_in?
       redirect_to customers_path
     end
   end

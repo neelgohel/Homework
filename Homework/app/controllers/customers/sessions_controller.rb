@@ -23,7 +23,7 @@ class Customers::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
   def check_admin
-    unless current_admin.nil?
+    if admin_signed_in?
       redirect_to admins_path
     end
   end

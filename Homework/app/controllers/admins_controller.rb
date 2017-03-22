@@ -3,8 +3,8 @@ class AdminsController < ApplicationController
   layout 'admin'
 
   def index
-    flash[:notice] = ""
-    flash[:alert] = ""
+    flash[:notice] = nil
+    flash[:alert] = nil
     @customers = Customer.all
   end
 

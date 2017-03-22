@@ -4,8 +4,8 @@ class CustomersController < ApplicationController
   layout 'customers'
 
   def index
-    flash[:notice] = ""
-    flash[:alert] = ""
+    flash[:notice] = nil
+    flash[:alert] = nil
     @bookings = current_customer.bookings
   end
 

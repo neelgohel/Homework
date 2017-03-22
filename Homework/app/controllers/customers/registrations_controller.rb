@@ -72,8 +72,9 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
   def check_admin
-    unless current_admin.nil?
+    if admin_signed_in?
       redirect_to admins_path
     end
   end
+
 end

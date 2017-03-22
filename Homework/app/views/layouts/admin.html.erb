@@ -17,14 +17,14 @@
         <li><%= link_to "Manage Cleaners",cleaners_path%></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>Welcome <%= current_admin.email %></li>
-        <li><%= button_to destroy_admin_session_path,method:'delete',class:'btn btn-link' do%><span class="glyphicon glyphicon-log-out"></span>Logout<% end %></li>
+        <li><%= link_to "Welcome #{current_admin.email}" %></li>
+        <li><%= link_to destroy_admin_session_path,method:'delete' do%><span class="glyphicon glyphicon-log-out"></span>Logout<% end %></li>
       </ul>
     </div>
   </nav>
   <div class="container">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%if notice %><p class="notice"><%= notice %></p><% end %>
+    <%if alert %><p class="alert"><%= alert %></p><% end %>
     <%= yield %>
   </div>
   </body>
