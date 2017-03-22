@@ -3,19 +3,25 @@
   <head>
     <title>Homework</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
 
-  <body>
-    <div align="center">
-      <%= link_to "Admin Login",admins_path %>
-      <%= link_to "Customer Login",customers_path %>
-      <hr/>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <%= yield %>
-    <div>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid" style="margin-left:40%">
+          <ul class="nav navbar-nav">
+            <li><%= link_to "Admin Login",new_admin_session_path %></li>
+            <li><%= link_to "Customer Login",new_customer_session_path %></li>
+          </ul>
+        </div>
+      </nav>
+      <div align="center">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+        <%= yield %>
+      </div>
   </body>
 </html>

@@ -5,4 +5,9 @@ class AdminsController < ApplicationController
   def index
     flash[:notice] = ""
   end
+
+  def show
+    redirect_to admins_path
+  end
+
 end

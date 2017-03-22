@@ -4,22 +4,28 @@
     <title>Homework</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
-    <div align="center">
-      <%= link_to "Home",customers_path%>
-      <%= link_to "Edit Profile",edit_customer_registration_path%>
-      <%= link_to "Book Cleaner",new_booking_path%>
-      <div style="float:right;">
-        <%= button_to "Log Out",destroy_customer_session_path,method:'delete'%>
-      </div>
-    </div>
-    <hr/>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+              <%= link_to "Homework",customers_path,class:"navbar-brand"%>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><%= link_to "Edit Profile",edit_customer_registration_path%></li>
+            <li><%= link_to "Book Cleaner",new_booking_path%></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= button_to destroy_customer_session_path,method:'delete' do%><span class="glyphicon glyphicon-log-out"></span>Logout<% end %></li>
+          </ul>
+        </div>
+      </nav>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
   </body>
 </html>
