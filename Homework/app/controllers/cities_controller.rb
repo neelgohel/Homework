@@ -1,5 +1,6 @@
 class CitiesController < ApplicationController
   before_action :authenticate_admin!
+  layout 'admin'
 
   def index
     @cities = City.all
@@ -19,15 +20,22 @@ class CitiesController < ApplicationController
   end
 
   def show
-    @city = City.find(params[:id])
-    @cleaners_in_city = []
-    @city.cleaners.each do |cleaner|
-      @cleaners_in_city.push(cleaner)
+    @city = City.find_by(id:params[:id])
+    unless @city.nil?
+      @cleaners_in_city = []
+      @city.cleaners.each do |cleaner|
+        @cleaners_in_city.push(cleaner)
+      end
+    else
+      redirect_to '/404'
     end
   end
 
   def edit
-    @city = City.find(params[:id])
+    @city = City.find_by(id:params[:id])
+    if @city.nil?
+      redirect_to '/404'
+    end
   end
 
   def update
@@ -37,6 +45,12 @@ class CitiesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @city = City.find(params[:id])
+    @city.destroy
+    redirect_to cities_path
   end
 
   private

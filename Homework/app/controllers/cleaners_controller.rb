@@ -1,5 +1,7 @@
 class CleanersController < ApplicationController
+before_action :authenticate_admin!
 before_action :load_city,only:[:new,:create,:edit,:update]
+layout 'admin'
 
 
   def load_city
@@ -20,7 +22,9 @@ before_action :load_city,only:[:new,:create,:edit,:update]
     @cities = []
     @cleaner = Cleaner.new(cleaner_params)
       if @cleaner.save
-
+        params[:city_ids].each do |id|
+          CitiesCleaner.create(city_id:id,cleaner_id:@cleaner.id)
+        end
         redirect_to @cleaner
       else
         render :new
@@ -28,9 +32,13 @@ before_action :load_city,only:[:new,:create,:edit,:update]
   end
 
   def edit
-    @cleaner = Cleaner.find(params[:id])
-    @cities = []
-    @cleaner.cities.each {|city| @cities.push(city.id)}
+    @cleaner = Cleaner.find_by(params[:id])
+    unless @cleaner.nil?
+      @cities = []
+      @cleaner.cities.each {|city| @cities.push(city.id)}
+    else
+      redirect_to '/404'
+    end
   end
 
   def update
@@ -47,9 +55,19 @@ before_action :load_city,only:[:new,:create,:edit,:update]
   end
 
   def show
+    @cleaner = Cleaner.find_by(id:params[:id])
+    unless @cleaner.nil?
+      @city_names = []
+      @cleaner.cities.each{|city| @city_names.push(city.city_name) }
+    else
+      redirect_to '/404'
+    end
+  end
+
+  def destroy
     @cleaner = Cleaner.find(params[:id])
-    @city_names = []
-    @cleaner.cities.each{|city| @city_names.push(city.city_name) }
+    @cleaner.destroy
+    redirect_to cleaners_path
   end
 
   private
