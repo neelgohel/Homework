@@ -5,11 +5,7 @@
     <th>Date and Time</th>
     <th colspan="2">Action</th>
   </tr>
-  <% if @bookings == []%>
-  <tr>
-      <td colspan="4" align="center">No Records Found</td>
-    </tr>
-  <% else %>
+  <% if @bookings.present?%>
     <% @bookings.each do |booking| %>
     <tr>
       <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
@@ -19,5 +15,9 @@
       <td><%= link_to booking_path(booking.id),method:'delete', data: { confirm: "Are you sure?" } do%> <span class="glyphicon glyphicon-trash"/><% end %></td>
     </tr>
     <% end %>
+  <% else %>
+    <tr>
+      <td colspan="4" align="center">No Records Found</td>
+    </tr>
   <% end %>
 </table>

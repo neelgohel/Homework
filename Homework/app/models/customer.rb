@@ -5,23 +5,15 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :bookings,dependent: :destroy
 
+
+  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/
   validates :first_name,presence:true
   validates :last_name,presence:true
   validates :phone_number,presence:true
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/,
+  validates :email, format: { with:EMAIL_REGEX,
     message: "Please Enter valid email address" }
   validates_uniqueness_of :phone_number
   validates :phone_number, numericality: true
-  validate :phone_number_length?
-
-  private
-  def phone_number_length?
-    if phone_number?
-      if phone_number.length != 10
-        errors.add(:phone_number,":length should be 10.")
-        false
-      end
-    end
-  end
+  validates :phone_number,  length: { is: 10 }
 
 end

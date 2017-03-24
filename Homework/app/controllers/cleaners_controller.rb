@@ -1,11 +1,16 @@
 class CleanersController < ApplicationController
 before_action :authenticate_admin!
 before_action :load_city,only:[:new,:create,:edit,:update]
+before_filter :load_cleaner,except:[:index,:new,:create]
 layout 'admin'
 
 
   def load_city
       @city = City.all
+  end
+
+  def load_cleaner
+    @cleaner = Cleaner.find_by(id:params[:id])
   end
 
   def index
@@ -32,17 +37,16 @@ layout 'admin'
   end
 
   def edit
-    @cleaner = Cleaner.find_by(params[:id])
-    unless @cleaner.nil?
+    if @cleaner.present?
       @cities = []
       @cleaner.cities.each {|city| @cities.push(city.id)}
     else
-      redirect_to '/404'
+      flash[:alert] = "Something Went Wrong"
+      redirect_to cleaners_path
     end
   end
 
   def update
-    @cleaner = Cleaner.find(params[:id])
     if @cleaner.update(cleaner_params)
       CitiesCleaner.where(cleaner_id:@cleaner.id).destroy_all
       params[:city_ids].each do |id|
@@ -55,17 +59,16 @@ layout 'admin'
   end
 
   def show
-    @cleaner = Cleaner.find_by(id:params[:id])
-    unless @cleaner.nil?
+    if @cleaner.present?
       @city_names = []
       @cleaner.cities.each{|city| @city_names.push(city.city_name) }
     else
-      redirect_to '/404'
+      flash[:alert] = "Something Went Wrong"
+      redirect_to cleaners_path
     end
   end
 
   def destroy
-    @cleaner = Cleaner.find(params[:id])
     @cleaner.destroy
     redirect_to cleaners_path
   end
