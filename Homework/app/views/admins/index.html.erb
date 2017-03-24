@@ -1,4 +1,23 @@
-<%= button_to "City",cities_path,method:'get'%>
-<%= button_to "Cleaners",cleaners_path,method:'get'%>
-Hello <%= current_admin.email %>
-<%= button_to "Log Out",destroy_admin_session_path,method:'delete'%>
+<h3>Customer Details</h3>
+<table class="table table-hover table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone Number</th>
+    <th>No of bookings</th>
+  </tr>
+  <% if @customers.present? %>
+  <% @customers.each do |customer| %>
+  <tr>
+    <td><%= customer.first_name %> <%= customer.last_name %></td>
+    <td><%= customer.email %></td>
+    <td><%= customer.phone_number %></td>
+    <td><%= customer.bookings.count %></td>
+  </tr>
+  <% end %>
+  <% else %>
+  <tr>
+    <td colspan="4" align="center">No Records Found.</td>
+  </tr>
+  <% end %>
+</table>

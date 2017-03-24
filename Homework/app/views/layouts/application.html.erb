@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Homework</title>
-    <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <title>Login - Homework</title>
+    <%= stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    <%= csrf_meta_tags %>
+    </head>
+    <body>
 
-  <body>
-    <%= yield %>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+            <li><%= link_to "Admin Login",new_admin_session_path %></li>
+            <li><%= link_to "Customer Login",new_customer_session_path %></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container">
+        <%if notice %><p class="notice"><%= notice %></p><% end %>
+        <%if alert %><p class="alert"><%= alert %></p><% end %>
+        <%= yield %>
+      </div>
   </body>
 </html>

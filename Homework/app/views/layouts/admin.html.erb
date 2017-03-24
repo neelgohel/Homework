@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homework</title>
+    <%= stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+          <%= link_to "Homework",admins_path,class:"navbar-brand"%>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Manage Cities",cities_path%></li>
+        <li><%= link_to "Manage Cleaners",cleaners_path%></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Welcome #{current_admin.email}" %></li>
+        <li><%= link_to destroy_admin_session_path,method:'delete' do%><span class="glyphicon glyphicon-log-out"></span>Logout<% end %></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <%if notice %><p class="notice"><%= notice %></p><% end %>
+    <%if alert %><p class="alert"><%= alert %></p><% end %>
+    <%= yield %>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<p>
+<h3>Booking Information</h3>
+</p>
+<p>
+  <strong>Cleaner allocated:</strong>
+  <%= @cleaner.first_name %> <%= @cleaner.last_name %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @city.city_name %>
+</p>
+
+<p>
+  <strong>Date and Time:</strong>
+  <%= @booking.datetime %>
+</p>
+
+<%= link_to :back,customers_path %>
