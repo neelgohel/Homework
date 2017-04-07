@@ -1,17 +1,10 @@
 class BookingsController < ApplicationController
-    before_action :authenticate_customer!
-    before_action :load_cities,only:[:new,:create]
-    before_filter :load_booking,only:[:show,:destroy]
-    layout 'customers'
-    include BookingsHelper
+  before_action :authenticate_customer!
+  before_action :load_cities,only:[:new,:create]
+  before_filter :load_booking,only:[:show,:destroy]
+  layout 'customers'
+  include BookingsHelper
 
-  def load_booking
-    @booking = Booking.find_by(id:params[:id])
-  end
-
-  def load_cities
-    @city = City.all
-  end
 
   def index
     redirect_to customers_path
@@ -24,36 +17,26 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.customer_id = current_customer.id
-    # begin
-       datetime = DateTime.new(params[:booking]["datetime(1i)"].to_i,
-                               params[:booking]["datetime(2i)"].to_i,
-                               params[:booking]["datetime(3i)"].to_i,
-                               params[:booking]["datetime(4i)"].to_i,
-                               params[:booking]["datetime(5i)"].to_i,0,'+05:30')
-      city = City.find(params[:booking][:city_id])
-      city_bookings_at_same_time = booking_in_time_span(city.bookings,datetime)
-      cleaners_not_available = city_bookings_at_same_time.collect { |booking|
-        booking.cleaner.id }
-      cleaners_in_city = city.cleaners.where.not(id:cleaners_not_available)
-      cleaners_available = cleaners_in_city.collect { |cleaner|
-        cleaner.id if !booking_in_time_span(cleaner.bookings,datetime).present?
-      }
-      if cleaners_available.present?
-        @booking.cleaner_id = cleaners_available.sample
-        if @booking.save
-          BookingmailMailer.mail_cleaner(@booking.id).deliver_later
-          redirect_to @booking
-        else
-          render 'new'
-        end
+    datetime = params[:booking][:datetime].to_datetime
+    city = City.find(params[:booking][:city_id])
+    cleaners_not_available = booking_in_time_span(city.bookings,datetime).collect { |booking|
+                                                            booking.cleaner.id }
+    cleaners_in_city = city.cleaners.where.not(id:cleaners_not_available)
+    cleaners_available = cleaners_in_city.collect { |cleaner|
+      cleaner.id if !booking_in_time_span(cleaner.bookings,datetime).present?
+    }
+    if cleaners_available.present?
+      @booking.cleaner_id = cleaners_available.sample
+      if @booking.save
+        BookingmailMailer.mail_cleaner(@booking.id).deliver_later
+        redirect_to @booking
       else
-        flash[:alert] = "No cleaner available at given time.."
-        redirect_to new_booking_path
+        render 'new'
       end
-    # rescue
-    #   flash[:alert] = "Invalid Date."
-    #   redirect_to new_booking_path
-    # end
+    else
+      flash[:alert] = "No cleaner available at given time.."
+      redirect_to new_booking_path
+    end
   end
 
   def show
@@ -85,5 +68,13 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:datetime, :city_id)
+  end
+
+  def load_booking
+    @booking = Booking.find_by(id:params[:id])
+  end
+
+  def load_cities
+    @city = City.all
   end
 end

@@ -2,9 +2,9 @@
   <% if @cleaner.errors.any? %>
     <div id="error_explanation">
       <ul>
-      <% @cleaner.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @cleaner.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -15,39 +15,44 @@
       <%= f.text_field :first_name ,class:'form-control'%>
     </div>
   </div>
+
   <%= f.label :last_name %>
   <div class="form-group">
     <div class="col-xs-5">
       <%= f.text_field :last_name ,class:'form-control' %>
+    </div>
   </div>
-</div>
-<%= f.label :quality_score %>
+
+  <%= f.label :quality_score %>
   <div class="form-group">
     <div class="col-xs-5">
       <%= f.text_field :quality_score ,class:'form-control' %>
     </div>
   </div>
+
   <%= f.label :email %>
   <div class="form-group">
     <div class="col-xs-5">
       <%= f.email_field :email ,class:'form-control' %>
     </div>
   </div>
-  <%= f.label :"City:" %>
 
+  <%= f.label :"City:" %>
   <% @city.each do |city| %>
-      <% if @cities.include?city.id %>
-        <div class="form_group">
-          <%= check_box_tag 'city_ids[]',city.id,checked:true %>
-          <%= h city.city_name %>
-        </div>
-      <%else%>
-        <div class="form_group">
-          <%= check_box_tag 'city_ids[]', city.id %>
-          <%= h city.city_name %>
-        </div>
-      <% end %>
+    <% if @cities.include?city.id %>
+      <div class="form_group">
+        <%= check_box_tag 'city_ids[]',city.id,checked:true %>
+        <%= h city.city_name %>
+      </div>
+    <% else %>
+      <div class="form_group">
+        <%= check_box_tag 'city_ids[]', city.id %>
+        <%= h city.city_name %>
+      </div>
+    <% end %>
   <% end %>
   <br/>
+
   <%= f.submit class:'btn btn-default'%>
+  
 <% end %>

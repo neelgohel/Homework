@@ -5,17 +5,17 @@
     <th colspan="3">Action</th>
   </tr>
   <% if @cities.present?%>
-  <% @cities.each do |city| %>
-  <tr>
-    <td><%= city.city_name %></td>
-    <td><%= link_to city_path(city.id) do%><span class="glyphicon glyphicon-eye-open"/><% end %></td>
-    <td><%= link_to edit_city_path(city.id) do%><span class="glyphicon glyphicon-pencil"/><% end %></td>
-    <td><%= link_to city_path(city.id),method:'delete',data: { confirm:'Are you sure?'} do%><span class="glyphicon glyphicon-trash"/><% end %> </td>
-  </tr>
-  <% end %>
+    <% @cities.each do |city| %>
+      <tr>
+        <td><%= city.city_name %></td>
+        <td><%= link_to city_path(city.id) do%><span class="glyphicon glyphicon-eye-open"/><% end %></td>
+        <td><%= link_to edit_city_path(city.id) do%><span class="glyphicon glyphicon-pencil"/><% end %></td>
+        <td><%= link_to city_path(city.id),method:'delete',data: { confirm:'Are you sure?'} do%><span class="glyphicon glyphicon-trash"/><% end %> </td>
+      </tr>
+    <% end %>
   <% else %>
-  <tr>
-    <td colspan="4" align="center">No Record Found</td>
-  </tr>
+    <tr>
+      <td colspan="4" align="center">No Record Found</td>
+    </tr>
   <% end %>
 </table>

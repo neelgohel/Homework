@@ -2,24 +2,28 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,class:'form-horizontal' }) do |f| %>
   <%= devise_error_messages! %>
+
   <%= f.label :email %>
   <div class="form-group">
     <div class="col-xs-5">
       <%= f.email_field :email, autofocus: true,readonly:true,class:'form-control'%>
     </div>
   </div>
+
   <%= f.label :first_name %>
   <div class="form-group">
     <div class="col-xs-5">
       <%= f.text_field :first_name, autofocus: true ,class:'form-control'%>
     </div>
   </div>
+
   <%= f.label :last_name %>
   <div class="form-group">
     <div class="col-xs-5">
       <%= f.text_field :last_name, autofocus: true,class:'form-control' %>
     </div>
   </div>
+
   <%= f.label :mobile_number %>
   <div class="form-group">
     <div class="col-xs-5">
@@ -55,5 +59,6 @@
     </div>
   </div>
 
-    <%= f.submit "Update",class:'btn btn-default' %>
+  <%= f.submit "Update",class:'btn btn-default' %>
+  
 <% end %>

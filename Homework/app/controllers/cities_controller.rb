@@ -33,6 +33,7 @@ class CitiesController < ApplicationController
     else
       flash[:alert] = "Something Went Wrong"
       redirect_to cities_path
+    end
   end
 
   def edit

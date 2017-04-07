@@ -1,22 +1,37 @@
 <%= form_for (@booking),html:{class:'form-horizontal'} do |f| %>
-<% if @booking.errors.any? %>
-  <div id="error_explanation">
-    <ul>
-    <% @booking.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-<%= f.label :City %>
-<div class="form-group">
-  <%= f.select :city_id,options_from_collection_for_select(@city,'id','city_name'),class:'form-control' %>
-</div>
+  <% if @booking.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @booking.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= f.label :data_and_time %>
-<div class="form-group">
-  <%= f.datetime_select :datetime,class:'form-control' %>
-</div>
+  <div class="form-group">
+    <div class="col col-md-5">
+      <%= f.label :City %><br/>
+      <%= f.select :city_id,options_from_collection_for_select(@city,'id','city_name'),class:'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col col-md-5">
+      <%= f.label :date_and_time %>
+      <%= f.text_field :datetime,id:'datetime',class:'form-control' %>
+    </div>
+  </div>
 
   <%= f.submit "Book",class:'btn btn-default'%>
 <% end %>
+
+
+<script>
+$(function () {
+                $('#datetime').datetimepicker({
+                  format: 'DD/MM/YYYY hh:mm +05:30',
+                  sideBySide: true
+                });
+            });
+</script>

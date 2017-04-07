@@ -9,18 +9,21 @@
       <%= f.email_field :email, autofocus: true %>
     </div>
   </div>
-    <%= f.label :first_name %>
-    <div class="form-group">
-      <div class="col-xs-5">
-        <%= f.text_field :first_name, autofocus: true %>
-      </div>
+
+  <%= f.label :first_name %>
+  <div class="form-group">
+    <div class="col-xs-5">
+      <%= f.text_field :first_name, autofocus: true %>
     </div>
-    <%= f.label :last_name %>
+  </div>
+
+  <%= f.label :last_name %>
   <div class="form-group">
     <div class="col-xs-5">
       <%= f.text_field :last_name, autofocus: true %>
     </div>
   </div>
+
   <%= f.label :mobile_number %>
   <div class="form-group">
     <div class="col-xs-5">
@@ -45,6 +48,7 @@
     </div>
   </div>
 
-    <%= f.submit "Sign up" %>
+  <%= f.submit "Sign up" %>
+
 <% end %>
 <%= render "customers/shared/links" %>

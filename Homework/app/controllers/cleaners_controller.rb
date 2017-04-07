@@ -5,13 +5,7 @@ before_filter :load_cleaner,except:[:index,:new,:create]
 layout 'admin'
 
 
-  def load_city
-      @city = City.all
-  end
 
-  def load_cleaner
-    @cleaner = Cleaner.find_by(id:params[:id])
-  end
 
   def index
     @cleaners = Cleaner.all
@@ -23,23 +17,21 @@ layout 'admin'
   end
 
   def create
-    @city = City.all
     @cities = []
     @cleaner = Cleaner.new(cleaner_params)
-      if @cleaner.save
-        params[:city_ids].each do |id|
-          CitiesCleaner.create(city_id:id,cleaner_id:@cleaner.id)
-        end
-        redirect_to @cleaner
-      else
-        render :new
+    if @cleaner.save
+      params[:city_ids].each do |id|
+        CitiesCleaner.create(city_id:id,cleaner_id:@cleaner.id)
       end
+      redirect_to @cleaner
+    else
+      render :new
+    end
   end
 
   def edit
     if @cleaner.present?
-      @cities = []
-      @cleaner.cities.each {|city| @cities.push(city.id)}
+      @cities = @cleaner.cities.pluck(:id)
     else
       flash[:alert] = "Something Went Wrong"
       redirect_to cleaners_path
@@ -60,8 +52,7 @@ layout 'admin'
 
   def show
     if @cleaner.present?
-      @city_names = []
-      @cleaner.cities.each{|city| @city_names.push(city.city_name) }
+      @city_names = @cleaner.cities.pluck(:city_name)
     else
       flash[:alert] = "Something Went Wrong"
       redirect_to cleaners_path
@@ -76,6 +67,14 @@ layout 'admin'
   private
   def cleaner_params
     params.require(:cleaner).permit(:first_name, :last_name, :quality_score, :email)
+  end
+
+  def load_city
+    @city = City.all
+  end
+
+  def load_cleaner
+    @cleaner = Cleaner.find_by(id:params[:id])
   end
 
 end
