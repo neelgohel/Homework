@@ -1,0 +1,23 @@
+<table class="table table-hover table-striped">
+  <tr>
+    <th>Cleaner Name</th>
+    <th>City</th>
+    <th>Date and Time</th>
+    <th colspan="2">Action</th>
+  </tr>
+  <% if @bookings.present?%>
+    <% @bookings.each do |booking| %>
+    <tr>
+      <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
+      <td><%= booking.city.city_name %></td>
+      <td><%= booking.datetime.strftime('%d/%m/%Y & %H:%M') %></td>
+      <td><%= link_to booking_path(booking.id) do%> <span class="glyphicon glyphicon-eye-open"/><% end %></td>
+      <td><%= link_to booking_path(booking.id),method:'delete', data: { confirm: "Are you sure?" } do%> <span class="glyphicon glyphicon-trash"/><% end %></td>
+    </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="4" align="center">No Records Found</td>
+    </tr>
+  <% end %>
+</table>

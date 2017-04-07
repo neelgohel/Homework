@@ -1,5 +1,11 @@
 class CitiesController < ApplicationController
   before_action :authenticate_admin!
+  before_filter :load_city,except:[:index,:new,:create]
+  layout 'admin'
+
+  def load_city
+    @city = City.find_by(id:params[:id])
+  end
 
   def index
     @cities = City.all
@@ -19,24 +25,35 @@ class CitiesController < ApplicationController
   end
 
   def show
-    @city = City.find(params[:id])
-    @cleaners_in_city = []
-    @city.cleaners.each do |cleaner|
-      @cleaners_in_city.push(cleaner)
+    if @city.present?
+      @cleaners_in_city = []
+      @city.cleaners.each do |cleaner|
+        @cleaners_in_city.push(cleaner)
+      end
+    else
+      flash[:alert] = "Something Went Wrong"
+      redirect_to cities_path
     end
   end
 
   def edit
-    @city = City.find(params[:id])
+    if @city.nil?
+      flash[:alert] = "Something Went Wrong"
+      redirect_to cities_path
+    end
   end
 
   def update
-    @city = City.find(params[:id])
     if @city.update(city_params)
       redirect_to @city
     else
       render :edit
     end
+  end
+
+  def destroy
+    @city.destroy
+    redirect_to cities_path
   end
 
   private
